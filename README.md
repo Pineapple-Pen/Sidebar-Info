@@ -1,4 +1,4 @@
-# map-side-bar
+# Sidebar-Info
 ## Purpose
 This service forms a part of the WeGot food review website. It renders basic information about a restaurant, including the opening hours, address, phone number, and links to website and to google maps for directions. In addition, the service renders a map centered on the location of the restaurant, with a labeled marker.
 
