@@ -25,8 +25,10 @@ Takes in a restaurant ID and requests restaurant information from the server. Re
 1. Install dependencies: `npm install`
 2. Build client files: `npm run react-dev`
 3. Start database server: `npm run database`
-4. Seed database: `npm run seed-database`
-5. Start server: `npm start`
+4. Seed database with FEC data: `npm run OG-seed`
+4. Seed database with SDC data: `npm run seed`
+5. Start server for dev purposes: `npm run server:watch`
+6. Start server to start: `npm run start`
 
 To start, in your browser navigate to: [http://localhost:3003](http://localhost:3003)
 
