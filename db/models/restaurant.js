@@ -61,7 +61,6 @@ exports.find = find;
 exports.insert = insert;
 exports.remove = remove;
 exports.count = count;
-exports.connection = db;
 //misc objects for testing and database seeding
 exports.Restaurant = Restaurant;
-exports.mongoose = mongoose;
+exports.connection = db;
