@@ -24,7 +24,7 @@ const millionGenerator = (cb) => {
       count++;
       cb(result);
     }
-    if(count === 100000) {
+    if(count === 1000000) {
       return;
     } else {
       result = [];
