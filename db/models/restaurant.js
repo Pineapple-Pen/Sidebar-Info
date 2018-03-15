@@ -8,34 +8,29 @@ var db = mongoose.connect('mongodb://' + databaseHost + '/wegot-sidebar'); //And
 
 var restaurantSchema = mongoose.Schema({
   result: {
-    place_id: { type: String, unique: true },
+    place_id: Number,
     name: String,
     formatted_address: String,
     international_phone_number: String,
     website: String,
     url: String,
-    opening_hours: {
-      open_now: Boolean,
-      periods: [
-        {
-          close: {
-            day: Number,
-            time: String
-          },
-          open: {
-            day: Number,
-            time: String
-          }
-        }
-      ],
-      weekday_text: [String]
-    },
-    geometry: {
-      location: {
-        lat: Number,
-        lng: Number
-      }
-    }
+    open_now: Boolean,
+    mondayOpenTime: String,
+    mondayCloseTime: String,
+    tuesdayOpenTime: String,
+    tuesdayCloseTime: String,
+    wednesdayOpenTime: String,
+    wednesdayCloseTime: String,
+    thursdayOpenTime: String,
+    thursdayCloseTime: String,
+    fridayOpenTime: String,
+    fridayCloseTime: String,
+    saturdayOpenTime: String,
+    saturdayCloseTime: String,
+    sundayOpenTime: String,
+    sundayCloseTime: String,
+    lat: Number,
+    lng: Number
   }
 });
 
@@ -47,6 +42,7 @@ var find = (queryObj) => {
 };
 
 var insert = (documents) => {
+  console.log('Seeded section complete: ', Date.now());
   return Restaurant.insertMany(documents);
 };
 

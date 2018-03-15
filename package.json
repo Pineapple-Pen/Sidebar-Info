@@ -6,7 +6,7 @@
   "scripts": {
     "database": "mongod",
     "OG-seed": "node db/controllers/seed_database.js",
-    "seed": "",
+    "seed": "node db/controllers/seed-oneM-NoSQL.js",
     "test": "jest",
     "react-dev": "webpack --watch",
     "server:watch": "nodemon server/index.js",
