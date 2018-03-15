@@ -1,7 +1,7 @@
 const faker = require('faker');
 
 // The following generates one single fake datapoint.
-const singlePoint = () => {
+module.exports = () => {
   const result = {
     name: `${faker.company.companyName()}`,
     formatted_address: 
@@ -44,8 +44,4 @@ const singlePoint = () => {
   return result;
 }
 
-console.log('started at: ', Date.now());
-for(let i = 0; i < 10,000; i++) {
-  singlePoint();
-}
-console.log('ended at: ', Date.now());
+
