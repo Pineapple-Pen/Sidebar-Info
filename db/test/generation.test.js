@@ -5,7 +5,7 @@ const samplePoint = singleGen();
 const tenKSamples = tenThousand();
 const oneMSamples = oneMillion();
 
-describe('fake business generation', () => {
+describe('single fake business generation', () => {
   test('should generate a single object:', () => {
     expect(typeof samplePoint).toBe('object');
   });
@@ -14,7 +14,7 @@ describe('fake business generation', () => {
   });
 });
 
-describe('weekday schedule generation', () => {
+describe('single weekday schedule generation', () => {
   test('should generate an array of 7 weekday hours:', () => {
     expect(Array.isArray(samplePoint.opening_hours.weekday_text.length)).toBe(7);
   });
