@@ -42,7 +42,6 @@ var find = (queryObj) => {
 };
 
 var insert = (documents) => {
-  console.log('Seeded section complete: ', Date.now());
   return Restaurant.insertMany(documents);
 };
 

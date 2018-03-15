@@ -44,4 +44,4 @@ const insertion = (data) => {
     });
   }
 
-oneMillion(insertion);
+tenThousand(insertion);
