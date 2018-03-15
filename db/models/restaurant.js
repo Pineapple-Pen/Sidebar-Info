@@ -5,6 +5,9 @@ databaseHost = process.env.DATABASE_HOST || 'localhost';
 //   useMongoClient: true
 // });  previous code
 var db = mongoose.connect('mongodb://' + databaseHost + '/wegot-sidebar'); //Andrea Update
+mongoose.connection.once('open', () => {
+  console.log('Connection to the DB established!!');
+});
 
 var restaurantSchema = mongoose.Schema({
   result: {
@@ -42,7 +45,7 @@ var find = (queryObj) => {
 };
 
 var insert = (documents) => {
-  return Restaurant.insertMany(documents);
+  return Restaurant.create(documents);
 };
 
 var remove = (queryObj) => {
@@ -58,7 +61,7 @@ exports.find = find;
 exports.insert = insert;
 exports.remove = remove;
 exports.count = count;
-
+exports.connection = db;
 //misc objects for testing and database seeding
 exports.Restaurant = Restaurant;
 exports.mongoose = mongoose;
