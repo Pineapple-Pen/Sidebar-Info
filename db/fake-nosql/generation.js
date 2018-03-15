@@ -2,24 +2,23 @@ const singleGenerator = require('./faker.js');
 
 const tenThousandGenerator = () => {
   let count = 0;
-  console.log('10K started at: ', Date.now());
+  let result = [];
   for (let i = 0; i < 10000; i += 1) {
-    singleGenerator();
+    result.push(singleGenerator());
     count++;
     if(count === 10000) {
-        console.log('10K ended at: ', Date.now());
+      return result;
     }
   }
 };
 
 const millionGenerator = () => {
     let count = 0;
-    console.log('1M started at: ', Date.now());
     for (let i = 0; i < 1000000; i += 1) {
-      singleGenerator();
+      result.push(singleGenerator());
       count++;
       if(count === 1000000) {
-        console.log('1M ended at: ', Date.now());
+        return result;
       }
     }
   };
