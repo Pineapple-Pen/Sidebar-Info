@@ -26,22 +26,22 @@ if (cluster.isMaster) {
   });
 } else {
    
-    const asyncTenThous = async (b) =>{
+    const asyncTenThous = async (batch) =>{
         //console.log(`The ${i} seed of 10K @: `, Date.now());
-        let tenKGenerated = tenThousand(b * process.env.workerId); // 0 or 250 or 500 or 750
+        let tenKGenerated = tenThousand(batch * process.env.workerId); // 0 or 250 or 500 or 750
         await database.Restaurant.insertMany(tenKGenerated);
     };
 
-    const stackThousandSeeds = async () => {
+    const stackOneThousandBatches = async () => {
         console.log('10M seeding started at: ', Date.now())
-        const batches = 1000 / numCPUs;
-        for (let i = 0; i < batches; i += 1) { // up to 250
-            await asyncTenThous(batches);
+        const workerSet = 1000 / numCPUs; // one worker takes a share of 1k 'batches'
+        for (let i = 0; i < workerSet; i += 1) { // up to 250
+            await asyncTenThous(workerSet);
         }
         console.log('Finished stack of a thousand seeds: ', Date.now());
     }
 
-    stackThousandSeeds();
+    stackOneThousandBatches();
 
 }
 
