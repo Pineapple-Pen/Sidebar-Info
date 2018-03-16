@@ -10,7 +10,6 @@ mongoose.connection.once('open', () => {
 });
 
 var restaurantSchema = mongoose.Schema({
-  result: {
     place_id: {type: Number, index: true},
     name: String,
     formatted_address: String,
@@ -34,7 +33,6 @@ var restaurantSchema = mongoose.Schema({
     sundayCloseTime: String,
     lat: Number,
     lng: Number
-  }
 });
 
 var Restaurant = mongoose.model('Restaurant', restaurantSchema);
