@@ -25,9 +25,7 @@ if (cluster.isMaster) {
     }
   });
 } else {
-
-    console.log('workerId', process.env.workerId); // 0 - 3
-
+   
     const asyncTenThous = async (b) =>{
         //console.log(`The ${i} seed of 10K @: `, Date.now());
         let tenKGenerated = tenThousand(b * process.env.workerId); // 0 or 250 or 500 or 750
