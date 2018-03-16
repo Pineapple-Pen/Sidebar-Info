@@ -11,7 +11,7 @@ mongoose.connection.once('open', () => {
 
 var restaurantSchema = mongoose.Schema({
   result: {
-    place_id: Number,
+    place_id: {type: Number, index: true},
     name: String,
     formatted_address: String,
     international_phone_number: String,
