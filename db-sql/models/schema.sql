@@ -9,7 +9,7 @@ CREATE TABLE restaurants (
   id serial NOT NULL PRIMARY KEY,
   place_name VARCHAR(50),
   formatted_address VARCHAR(150),
-  international_phone_number VARCHAR(20),
+  international_phone_number VARCHAR(30),
   email VARCHAR(100),
   website VARCHAR(200),
   open_now boolean,
@@ -29,6 +29,8 @@ CREATE TABLE restaurants (
   sun_close INTEGER,
   position point 
 );
+
+
 
 -- store the week schedule as a JSON object?
 

@@ -1,64 +1,56 @@
-var mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
-databaseHost = process.env.DATABASE_HOST || 'localhost';
-// var db = mongoose.connect('mongodb://' + databaseHost + '/wegot-sidebar', {
-//   useMongoClient: true
-// });  previous code
-var db = mongoose.connect('mongodb://' + databaseHost + '/wegot-sidebar'); //Andrea Update
-mongoose.connection.once('open', () => {
-  console.log('Connection to the DB established!!');
-});
+const pgPromise = require('pg-promise');
+const pg = require('pg');
+const env = require('dotenv');
 
-var restaurantSchema = mongoose.Schema({
-    place_id: {type: Number, index: true},
-    name: String,
-    formatted_address: String,
-    international_phone_number: String,
-    website: String,
-    url: String,
-    open_now: Boolean,
-    mondayOpenTime: String,
-    mondayCloseTime: String,
-    tuesdayOpenTime: String,
-    tuesdayCloseTime: String,
-    wednesdayOpenTime: String,
-    wednesdayCloseTime: String,
-    thursdayOpenTime: String,
-    thursdayCloseTime: String,
-    fridayOpenTime: String,
-    fridayCloseTime: String,
-    saturdayOpenTime: String,
-    saturdayCloseTime: String,
-    sundayOpenTime: String,
-    sundayCloseTime: String,
-    lat: Number,
-    lng: Number
-});
+const databaseHost = process.env.DATABASE_HOST || 'localhost';
+const username = process.env.PG_USER;
+const password = process.env.PG_PASSWORD;
 
-var Restaurant = mongoose.model('Restaurant', restaurantSchema);
+const connectionString = `postgres://ellisona:bananas@localhost/wegot_sidebar`;
+const client = new pg.Client(connectionString);
+client.connect()
+  .then(() => console.log('connected to postgres'))
+  .catch(err => console.error('connection error to postgres: ', err.stack))
 
+// PG connected. Query logic below.
+// Note: `npm run sql-db` mustq already have been run, 
+// prior to performing any of the following query logic.
 
-var find = (queryObj) => {
-  return Restaurant.find(queryObj);
-};
+// const find = (queryObj) => {
+//   client.query(''/* QUERY STRING GOES HERE */'')
+//     .then(result => /* do something with result */)
+//     .catch(e => console.error('FIND query error, ', e.stack))
+//     // .then(() => client.end()) //May not be necessary
+// };
 
-var insert = (documents) => {
-  return Restaurant.create(documents);
-};
+// const insertMany = async (entries) => {
+//   for (let i = 0; i < entries.length; i++) {
+//     let thisEntry = entries[i];
+//     await client.query('INSERT INTO restaurants() ')
+//       .then(result => /* do something with result */)
+//       .catch(e => console.error('FIND query error, ', e.stack))
+//     // .then(() => client.end()) //May not be necessary
+//   }
+// };
 
-var remove = (queryObj) => {
-  return Restaurant.remove(queryObj);
-};
+// const remove = (queryObj) => {
+//   client.query(''/* QUERY STRING GOES HERE */'')
+//   .then(result => /* do something with result */)
+//   .catch(e => console.error('FIND query error, ', e.stack))
+//   // .then(() => client.end()) //May not be necessary
+// };
 
-var count = (queryObj) => {
-  return Restaurant.count(queryObj);
-};
+// const count = (queryObj) => {
+//   client.query(''/* QUERY STRING GOES HERE */'')
+//   .then(result => /* do something with result */)
+//   .catch(e => console.error('FIND query error, ', e.stack))
+//   // .then(() => client.end()) //May not be necessary
+// };
 
-//database functions
-exports.find = find;
-exports.insert = insert;
-exports.remove = remove;
-exports.count = count;
-//misc objects for testing and database seeding
-exports.Restaurant = Restaurant;
-exports.connection = db;
+// // database functions, un-promisified
+// exports.find = find;
+// exports.insertMany = insertMany;
+// exports.remove = remove;
+// exports.count = count;
+// exporting connection
+exports.connection = client;
