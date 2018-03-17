@@ -1,42 +1,64 @@
-const pgPromise = require('pg-promise');
-const pg = require('pg');
-const env = require('dotenv');
+var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+databaseHost = process.env.DATABASE_HOST || 'localhost';
+// var db = mongoose.connect('mongodb://' + databaseHost + '/wegot-sidebar', {
+//   useMongoClient: true
+// });  previous code
+var db = mongoose.connect('mongodb://' + databaseHost + '/wegot-sidebar'); //Andrea Update
+mongoose.connection.once('open', () => {
+  console.log('Connection to the DB established!!');
+});
 
-const databaseHost = process.env.DATABASE_HOST || 'localhost';
-const username = process.env.PG_USER;
-const password = process.env.PG_PASSWORD;
+var restaurantSchema = mongoose.Schema({
+    place_id: {type: Number, index: true},
+    name: String,
+    formatted_address: String,
+    international_phone_number: String,
+    website: String,
+    url: String,
+    open_now: Boolean,
+    mondayOpenTime: String,
+    mondayCloseTime: String,
+    tuesdayOpenTime: String,
+    tuesdayCloseTime: String,
+    wednesdayOpenTime: String,
+    wednesdayCloseTime: String,
+    thursdayOpenTime: String,
+    thursdayCloseTime: String,
+    fridayOpenTime: String,
+    fridayCloseTime: String,
+    saturdayOpenTime: String,
+    saturdayCloseTime: String,
+    sundayOpenTime: String,
+    sundayCloseTime: String,
+    lat: Number,
+    lng: Number
+});
 
-const connectionString = `postgres://${username}:${password}@${databaseHost}/ip:5432/wegot_sidebar`;
-const client = new pg.Client(connectionString);
-client.connect()
-  .then(() => console.log('connected to postgres'))
-  .catch(err => console.error('connection error to postgres: ', err.stack))
+var Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
-// PG connected. Query logic below.
-// Note: `npm run sql-db` must already have been run, 
-// prior to performing any of the following query logic.
 
-const find = (queryObj) => {
-
+var find = (queryObj) => {
+  return Restaurant.find(queryObj);
 };
 
-const insert = (documents) => {
-
+var insert = (documents) => {
+  return Restaurant.create(documents);
 };
 
-const remove = (queryObj) => {
-
+var remove = (queryObj) => {
+  return Restaurant.remove(queryObj);
 };
 
-const count = (queryObj) => {
-
+var count = (queryObj) => {
+  return Restaurant.count(queryObj);
 };
 
-// database functions
+//database functions
 exports.find = find;
 exports.insert = insert;
 exports.remove = remove;
 exports.count = count;
-// misc objects for testing and database seeding
+//misc objects for testing and database seeding
 exports.Restaurant = Restaurant;
 exports.connection = db;
