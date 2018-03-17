@@ -3,8 +3,19 @@
   "version": "1.0.0",
   "description": "info sidebar with a map for WeGot restaurant review website",
   "main": "server/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bamboo-connection/map-side-bar.git"
+  },
+  "author": "Andrea W. Ellison",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bamboo-connection/map-side-bar/issues"
+  },
+  "homepage": "https://github.com/bamboo-connection/map-side-bar#readme",
   "scripts": {
-    "database": "mongod",
+    "nosql-db": "mongod",
+    "sql-db": "psql -U ellisona -a -f db-sql/controllers/schema.sql",
     "OG-seed": "node db/controllers/seed_database.js",
     "seed": "node --max-old-space-size=3072 db/controllers/seed-tenM-NoSQL.js",
     "test": "jest",
@@ -13,16 +24,6 @@
     "start": "node server/index.js",
     "docker-start": "DATABASE_HOST=database node db/controllers/seed_database.js && DATABASE_HOST=database node server/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bamboo-connection/map-side-bar.git"
-  },
-  "author": "Paolo Z. Roxas",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bamboo-connection/map-side-bar/issues"
-  },
-  "homepage": "https://github.com/bamboo-connection/map-side-bar#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -44,12 +45,14 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "faker": "^4.1.0",
     "google-maps-react": "^1.1.2",
     "jquery": "^3.3.1",
     "mongoose": "^5.0.6",
     "morgan": "^1.9.0",
+    "pg": "^7.4.1",
     "pg-promise": "^8.2.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
