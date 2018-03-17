@@ -11,7 +11,7 @@ CREATE TABLE restaurants (
   formatted_address VARCHAR(150),
   international_phone_number VARCHAR(20),
   email VARCHAR(100),
-  website_url VARCHAR(200),
+  website VARCHAR(200),
   open_now boolean,
   mon_open INTEGER,
   mon_close INTEGER,

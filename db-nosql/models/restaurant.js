@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var postgres = require('pg-promise');
 mongoose.Promise = require('bluebird');
 databaseHost = process.env.DATABASE_HOST || 'localhost';
 // var db = mongoose.connect('mongodb://' + databaseHost + '/wegot-sidebar', {
@@ -9,31 +9,7 @@ mongoose.connection.once('open', () => {
   console.log('Connection to the DB established!!');
 });
 
-var restaurantSchema = mongoose.Schema({
-    place_id: {type: Number, index: true},
-    name: String,
-    formatted_address: String,
-    international_phone_number: String,
-    email: String,
-    url: String,
-    open_now: Boolean,
-    mondayOpenTime: String,
-    mondayCloseTime: String,
-    tuesdayOpenTime: String,
-    tuesdayCloseTime: String,
-    wednesdayOpenTime: String,
-    wednesdayCloseTime: String,
-    thursdayOpenTime: String,
-    thursdayCloseTime: String,
-    fridayOpenTime: String,
-    fridayCloseTime: String,
-    saturdayOpenTime: String,
-    saturdayCloseTime: String,
-    sundayOpenTime: String,
-    sundayCloseTime: String,
-    lat: Number,
-    lng: Number
-});
+var restaurantSchema = ;
 
 var Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
@@ -54,11 +30,11 @@ var count = (queryObj) => {
   return Restaurant.count(queryObj);
 };
 
-//database functions
+// database functions
 exports.find = find;
 exports.insert = insert;
 exports.remove = remove;
 exports.count = count;
-//misc objects for testing and database seeding
+// misc objects for testing and database seeding
 exports.Restaurant = Restaurant;
 exports.connection = db;
