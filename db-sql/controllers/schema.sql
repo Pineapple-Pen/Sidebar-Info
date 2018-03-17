@@ -2,7 +2,7 @@ DROP DATABASE wegot_sidebar;
 
 CREATE DATABASE wegot_sidebar;
 
-USE wegot_sidebar;
+\c wegot_sidebar;
 
 CREATE TABLE restaurants (
   /* Describe your table here.*/
