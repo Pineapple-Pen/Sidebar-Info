@@ -22,43 +22,50 @@ if (cluster.isMaster) {
     console.log(`worker ${worker.process.pid} died`);
     if(workerCount === 0) {
       connection.end()
-        .then(() => console.log('connection has ended'))
+        .then(() =>  console.log('Finished at: ', Date.now()))
         .catch(err => console.error('error during disconnection', err.stack))
-    }
-  });
-} else {
-  let count = 0;
-  const asyncTenThous = async (startPoint) => {
-      //console.log(`The ${i} seed of 10K @: `, Date.now());
-      let generated = tenThousand(startPoint); // 0 or 250 or 500 or 750
-      // let generated = singlePoint(startPoint); 
-      for(let i  = 0; i < generated.length; i += 1) {
-        const text = 'INSERT INTO restaurants(place_name, formatted_address, international_phone_number, email, website, open_now, mon_open, mon_close, tue_open, tue_close, wed_open, wed_close, thu_open, thu_close, fri_open, fri_close, sat_open, sat_close, sun_open, sun_close, position) VALUES( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21);'
-        let entry = generated[i];
-        // console.log('this is your entry: ', entry);
-        await connection.query(text, entry)
-          .catch(e => { 
-            count++;
-            console.log('error with insertion: ', e.stack);
-          })
       }
+    });
+} else {
+
+  let count = 0;
+  let start = 0;
+
+  const asyncTenThous = async () => {
+    console.log('I am working, human...');
+    let generated = tenThousand();
+    const text = 'INSERT INTO restaurants(place_name, formatted_address, international_phone_number, email, website, open_now, mon_open, mon_close, tue_open, tue_close, wed_open, wed_close, thu_open, thu_close, fri_open, fri_close, sat_open, sat_close, sun_open, sun_close, position) VALUES( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21);'
+    for(let i  = 0; i < generated.length; i += 1) {
+      let entry = generated[i];
+      // let [a, b, c, d, e, f, g, h, j, k, l, m, n, o, p, q, r, s, t, u, v, w] = generated[i];
+      // await connection.query(`PREPARE fooplan AS INSERT INTO restaurants(place_name, formatted_address, international_phone_number, email, website, open_now, mon_open, mon_close, tue_open, tue_close, wed_open, wed_close, thu_open, thu_close, fri_open, fri_close, sat_open, sat_close, sun_open, sun_close, position) VALUES( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21);
+      // `+'EXECUTE fooplan("'+b+'", "'+c+'", "'+d+'", "'+e+'", "'+f+'", '+g+', '+h+', '+j+', '+k+', '+l+', '+m+', '+n+', '+o+', '+p+', '+q+', '+r+', '+s+', '+t+', '+u+', '+v+', "'+w+'");')
+      // let text = 'EXECUTE foo'
+      await connection.query(text, entry);
+    }
   };
-
-  // const stackOneThousandBatches = async () => {
-  //     console.log('10M seeding started at: ', Date.now())
-  //     const oneWorkerShare = 1000 / numCPUs; // one worker takes a share of 1k 'batches'
-      
-  //     for (let i = 0; i < oneWorkerShare; i += 1) { // 0 to 250
-  //       let setNumber = (i*10000)+((10000000/numCPUs)*process.env.workerId); // startpoint in 250 sets of 10k 
-  //       await asyncTenThous(setNumber); 
-  //     }
-  //     console.log('Finished stack of a thousand seeds: ', Date.now());
-  //     console.log('errors: ', count);
-  // }
-
-  // stackOneThousandBatches();
-  asyncTenThous(1);
-
+  
+  const stackOneThousandBatches = async () => {
+    let end = 0;
+    const oneWorkerShare = 4 / numCPUs; // one worker takes a share of 1k 'batches'
+    for (let i = 0; i < oneWorkerShare; i += 1) { // 0 to 250
+      await asyncTenThous()
+        .then(()=>{
+          end = Date.now();
+          console.log(`Worker #${process.env.workerId} seeded in ${end - start}ms`);
+        }) 
+    }
+  }
+  
+  try {
+    start = Date.now();
+    // asyncTenThous(1);
+    stackOneThousandBatches();
+  }
+  catch (error) {
+    count++;
+    console.error('error seeding: ', error.stack);
+  }
 }
 
 // (id, place_name, formatted_address, international_phone_number, email, website, open_now, mon_open, mon_close, tue_open, tue_close, wed_open, wed_close, thu_open, thu_close, fri_open, fri_close, sat_open, sat_close, sun_open, sun_close, position)

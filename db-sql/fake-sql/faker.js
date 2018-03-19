@@ -1,7 +1,7 @@
 const faker = require('faker');
 
 // The following generates one single fake datapoint.
-module.exports = (number) => {
+module.exports = () => {
   const result = [
     `${faker.company.companyName()}`,
     `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}, ${faker.address.countryCode()}`,
