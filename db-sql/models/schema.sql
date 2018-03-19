@@ -5,7 +5,6 @@ CREATE DATABASE wegot_sidebar;
 \c wegot_sidebar;
 
 CREATE TABLE restaurants (
-  /* Describe your table here.*/
   id serial NOT NULL PRIMARY KEY,
   place_name VARCHAR(50),
   formatted_address VARCHAR(150),
@@ -31,12 +30,8 @@ CREATE TABLE restaurants (
 );
 
 
+-- THE BELOW TABLES ARE FOR REFACTORING AFTER INCORPORATION OF A SIGLE, SIMPLE FLATTENED TABLE
 
--- store the week schedule as a JSON object?
-
-/* Create other tables and define schemas for them here! */
-
--- THE BELOW TABLES ARE FOR REFACTORING AFTER TESTING FLATTENED TABLE
 -- CREATE TABLE week_days (
 --   id serial NOT NULL,
 --   day TEXT,
