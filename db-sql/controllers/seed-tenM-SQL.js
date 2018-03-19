@@ -17,7 +17,7 @@ const db = pgp(cn);
 
 const cluster = require('cluster');
 const http = require('http');
-const numCPUs = require('os').cpus().length; // Andrea = 4
+const numCPUs = require('os').cpus().length; 
 
 const columnSet = new pgp.helpers.ColumnSet([
   'place_name',
@@ -75,14 +75,13 @@ if (cluster.isMaster) {
     const insert = pgp.helpers.insert(generated, columnSet);
     await db.none(insert)
       .then(()=>{
-        // console.log('10K inserted.');
       })
 
   };
   
   const stackOneThousandBatches = async () => {
     const oneWorkerShare = 1000 / numCPUs; // one worker takes a share of 1k 'batches'
-    for (let i = 0; i < oneWorkerShare; i += 1) { // 0 to 250
+    for (let i = 0; i < oneWorkerShare; i += 1) {
       await asyncTenThous()
         .then(()=>{
           console.log(`Worker #${process.env.workerId} now completed ${i + 1} of ${oneWorkerShare} batches`);
@@ -100,5 +99,3 @@ if (cluster.isMaster) {
     console.error('error seeding: ', error.stack);
   }
 }
-
-// (id, place_name, formatted_address, international_phone_number, email, website, open_now, mon_open, mon_close, tue_open, tue_close, wed_open, wed_close, thu_open, thu_close, fri_open, fri_close, sat_open, sat_close, sun_open, sun_close, position)
