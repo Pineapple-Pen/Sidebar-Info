@@ -2,13 +2,9 @@ const faker = require('faker');
 
 // The following generates one single fake datapoint.
 
-const afternoonTime = () => {
-  return Math.ceil(Math.random()*12) + 12
-}
+const afternoonTime = () => Math.ceil(Math.random()*12) + 12
 
-const morningTime = () => {
-  return Math.ceil(Math.random()*12)
-}
+const morningTime = () => Math.ceil(Math.random()*12)
 
 module.exports = () => {
   const result = {
