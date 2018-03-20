@@ -1,4 +1,3 @@
-// const {db} = require('../models/restaurant.js');
 const pg = require('pg');
 const pgp = require('pg-promise')({
   capSQL: true // generate capitalized SQL 
@@ -77,7 +76,7 @@ if (cluster.isMaster) {
   };
   
   const stackOneThousandBatches = async () => {
-    const oneWorkerShare = 1000 / numCPUs; // one worker takes a share of 1k 'batches'
+    const oneWorkerShare = 4 / numCPUs; // one worker takes a share of 1k 'batches'
     for (let i = 0; i < oneWorkerShare; i += 1) {
       await asyncTenThous()
         .then(()=>{

@@ -1,6 +1,8 @@
 
 const pg = require('pg');
-const pgp = require('pg-promise');
+const pgp = require('pg-promise')({
+  capSQL: true // generate capitalized SQL 
+});
 const env = require('dotenv');
 
 const databaseHost = process.env.DATABASE_HOST || 'localhost';

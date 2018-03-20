@@ -13,6 +13,15 @@ describe('single fake business generation', () => {
   });
 });
 
+describe('10K sample generation', () => {
+  test('should generate an array of datapoints:', () => {
+    expect(Array.isArray(tenKSamples)).toBe(true);
+  });
+  test('should generate 10K datapoints:', () => {
+    expect(tenKSamples.length).toBe(10000);
+  });
+});
+
 //Testing for nested schema only:
 
 // describe('single weekday schedule generation', () => {
@@ -23,12 +32,3 @@ describe('single fake business generation', () => {
 //     expect(samplePoint.opening_hours.periods.length).toBe(7);
 //   });
 // });
-
-describe('10K sample generation', () => {
-  test('should generate an array of datapoints:', () => {
-    expect(Array.isArray(tenKSamples)).toBe(true);
-  });
-  test('should generate 10K datapoints:', () => {
-    expect(tenKSamples.length).toBe(10000);
-  });
-});
