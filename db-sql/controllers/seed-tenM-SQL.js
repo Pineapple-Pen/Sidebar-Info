@@ -74,9 +74,6 @@ if (cluster.isMaster) {
     const generated = tenThousand();
     const insert = pgp.helpers.insert(generated, columnSet);
     await db.none(insert)
-      .then(()=>{
-      })
-
   };
   
   const stackOneThousandBatches = async () => {

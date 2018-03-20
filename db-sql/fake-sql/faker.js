@@ -2,6 +2,14 @@ const faker = require('faker');
 
 // The following generates one single fake datapoint.
 
+const afternoonTime = () => {
+  return Math.ceil(Math.random()*12) + 12
+}
+
+const morningTime = () => {
+  return Math.ceil(Math.random()*12)
+}
+
 module.exports = () => {
   const result = {
     place_name: `${faker.company.companyName()}`,
@@ -10,20 +18,20 @@ module.exports = () => {
     email: `${faker.internet.email()}`,
     website: `${faker.internet.url()}`,
     open_now: faker.random.boolean(),
-    mon_open: Math.ceil(Math.random()*12),
-    mon_close: Math.ceil(Math.random()*12) + 12,
-    tue_open: Math.ceil(Math.random()*12),
-    tue_close: Math.ceil(Math.random()*12) + 12,
-    wed_open: Math.ceil(Math.random()*12),
-    wed_close: Math.ceil(Math.random()*12) + 12,
-    thu_open: Math.ceil(Math.random()*12),
-    thu_close: Math.ceil(Math.random()*12) + 12,
-    fri_open: Math.ceil(Math.random()*12),
-    fri_close: Math.ceil(Math.random()*12) + 12,
-    sat_open: Math.ceil(Math.random()*12),
-    sat_close: Math.ceil(Math.random()*12) + 12,
-    sun_open: Math.ceil(Math.random()*12),
-    sun_close: Math.ceil(Math.random()*12) + 12,
+    mon_open: morningTime(),
+    mon_close: afternoonTime(),
+    tue_open: morningTime(),
+    tue_close: afternoonTime(),
+    wed_open: morningTime(),
+    wed_close: afternoonTime(),
+    thu_open: morningTime(),
+    thu_close: afternoonTime(),
+    fri_open: morningTime(),
+    fri_close: afternoonTime(),
+    sat_open: morningTime(),
+    sat_close: afternoonTime(),
+    sun_open: morningTime(),
+    sun_close: afternoonTime(),
     position: `(${faker.address.latitude()}, ${faker.address.longitude()})` 
   }
   // return single constructed datapoint 
