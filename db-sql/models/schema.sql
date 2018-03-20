@@ -6,6 +6,7 @@ CREATE DATABASE wegot_sidebar;
 
 CREATE TABLE restaurants (
   id serial NOT NULL PRIMARY KEY,
+  place_id serial NOT NULL,
   place_name VARCHAR(50),
   formatted_address VARCHAR(150),
   international_phone_number VARCHAR(30),
@@ -29,6 +30,7 @@ CREATE TABLE restaurants (
   position point 
 );
 
+CREATE UNIQUE INDEX place_id ON restaurants(place_id);
 
 -- THE BELOW TABLES ARE FOR REFACTORING AFTER INCORPORATION OF A SIGLE, SIMPLE FLATTENED TABLE
 
