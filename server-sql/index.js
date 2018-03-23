@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-
 var path = require('path');
 var cors = require('cors');
 var morgan = require('morgan');
@@ -14,6 +13,12 @@ app.use(morgan('tiny'));
 
 app.options((req, res) => {
   res.send('OK');
+});
+
+var defaultRestaurantId = Math.floor(Math.random() * 9999);
+
+app.get('/', (req, res) => {
+  res.redirect('/restaurants/' + defaultRestaurantId);
 });
 
 app.get('/bundle.js', (req, res) => {

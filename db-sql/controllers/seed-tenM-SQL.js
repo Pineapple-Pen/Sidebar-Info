@@ -72,11 +72,11 @@ if (cluster.isMaster) {
     console.log('I am working, human...');
     const generated = tenThousand();
     const insert = pgp.helpers.insert(generated, columnSet);
-    await db.none(insert)
+    await db.query(insert)
   };
   
   const stackOneThousandBatches = async () => {
-    const oneWorkerShare = 4 / numCPUs; // one worker takes a share of 1k 'batches'
+    const oneWorkerShare = 1000 / numCPUs; // one worker takes a share of 1k 'batches'
     for (let i = 0; i < oneWorkerShare; i += 1) {
       await asyncTenThous()
         .then(()=>{
