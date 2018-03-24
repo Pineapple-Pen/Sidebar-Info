@@ -9,18 +9,13 @@ const cnParam = {
   user: 'ellisona',
   password: 'bananas'
 };
-
 const db = pgp(cnParam);
-
 const query = require('pg-promise').ParameterizedQuery;
-
-// Creating a complete Parameterized Query with parameters:
 
 const findOne = (id) => {
   const findRestaurantQuery = new query('SELECT * FROM restaurants WHERE place_id = $1', [id]);
   return db.one(findRestaurantQuery)
   .then(restaurant => {
-    // console.log('Found: ', restaurant); // print restaurant object;
     let reshaped = {
       result: {
         place_id: restaurant.place_id,
