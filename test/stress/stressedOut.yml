@@ -5,9 +5,9 @@ config:
   phases:
     - duration: 30
       arrivalRate: 10
-      rampTo: 50
+      rampTo: 30
     - duration: 10
-      arrivalRate: 50
+      arrivalRate: 30
     - duration: 30
       arrivalRate: 10
       rampTo: 20
