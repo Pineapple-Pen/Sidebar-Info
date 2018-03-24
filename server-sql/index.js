@@ -1,15 +1,18 @@
+const newrelic = require('newrelic');
+require('dotenv').config();
+// change logic to override newrelic LICENSE key and APP NAME with process.env values.
+
 var express = require('express');
 var app = express();
 var path = require('path');
 var cors = require('cors');
-var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var restaurantsRouter = require('./routers/restaurants.js');
 var restaurantsApiRouter = require('./routers/restaurants_api.js');
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(morgan('tiny'));
+app.use(express.static(__dirname + '../client/dist'))
 
 app.options((req, res) => {
   res.send('OK');
@@ -26,10 +29,7 @@ app.get('/bundle.js', (req, res) => {
 });
 
 app.use('/restaurants', restaurantsRouter);
-
 app.use('/api/restaurants', restaurantsApiRouter);
 
-
-
-var port = process.env.PORT || 3003;
+var port = process.env.PORT;
 app.listen(port, () => { console.log('Listening on http://localhost:' + port); });
