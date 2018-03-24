@@ -1,19 +1,17 @@
 config:
   target: 'http://localhost:3003'
   http:
-    pool: 10
+    pool: 4
   phases:
     - duration: 10
       arrivalRate: 10
-      rampTo: 50
-    - duration: 10
-      arrivalRate: 50
-    - duration: 5
-      arrivalRate: 50
+      rampTo: 20
+    - duration: 15
+      arrivalRate: 20
 
 scenarios:
   - flow:
     - loop:
       - get:
           url: "/"
-      count: 75
+      count: 50

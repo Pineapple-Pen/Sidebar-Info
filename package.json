@@ -24,7 +24,8 @@
     "server:watch": "nodemon server-sql/index.js",
     "start": "node server-sql/index.js",
     "sql-docker-start": "DATABASE_HOST=database node db-sql/controllers/seed_database.js && DATABASE_HOST=database node server/index.js",
-    "nosql-docker-start": "DATABASE_HOST=database node db-nosql/controllers/seed_database.js && DATABASE_HOST=database node server/index.js"
+    "nosql-docker-start": "DATABASE_HOST=database node db-nosql/controllers/seed_database.js && DATABASE_HOST=database node server/index.js",
+    "stress": "artillery run test/stress/stressedOut.yml"
   },
   "devDependencies": {
     "artillery": "^1.6.0-14",
