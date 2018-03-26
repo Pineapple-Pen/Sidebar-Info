@@ -3,7 +3,7 @@ import axios from 'axios';
 import { InfoList } from './InfoList.jsx';
 import MapContainer from './MapContainer.jsx';
 
-class App extends React.Component {
+class Sidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,4 +36,4 @@ class App extends React.Component {
   }
 }
 
-export { App };
+export default Sidebar;

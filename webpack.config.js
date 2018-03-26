@@ -10,5 +10,8 @@ module.exports = {
       {test: /\.css$/, loader: ['style-loader', 'css-loader']}
     ]
   },
-  devtool: "source-map"
+  devtool: "source-map",
+  node: {
+    fs: 'empty'
+  }
 }
