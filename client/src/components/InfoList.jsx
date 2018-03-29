@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
-import { OpeningHours } from './OpeningHours.jsx';
+import OpeningHours from './OpeningHours';
+import InfoListElement from './InfoListElement';
 
 var InfoList = (props) => {
   var info = {
@@ -42,24 +43,5 @@ var InfoList = (props) => {
   );
 };
 
-var InfoListElement = (props) => {
-  if (!props.info.text) {
-    return <div></div>;
-  } else {
-    return (
-      <div className="sidebar-flexbox-row sidebar-info-list-element">
-        <div className="sidebar-info-list-element-icon">
-          <i className={props.info.icon} />
-        </div>
-        <div className="sidebar-info-list-text">
-          <a className="sidebar-anchor" href={props.info.link.url}
-            target={props.info.link.newTab ? '_blank' : ''}>
-            {props.info.text}
-          </a>
-        </div>
-      </div>
-    );
-  }
-}
 
-export {InfoList, InfoListElement, OpeningHours};
+export default InfoList;

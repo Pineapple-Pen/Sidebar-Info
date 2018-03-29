@@ -1,19 +1,23 @@
 import React from 'react';
 import axios from 'axios';
-import { InfoList } from './InfoList.jsx';
+import InfoList from './InfoList.jsx';
 import MapContainer from './MapContainer.jsx';
 
-class Sidebar extends React.Component {
+export default class Sidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       restaurant: props.restaurant
-    };
-    this.getRestaurantData(props.restaurantId);
+    }; 
   }
 
-  getRestaurantData (id) {
-    axios.get(location.origin + '/api/restaurants/' + id + '/sidebar')
+  componentDidMount() {
+    this.getRestaurantData(this.props.id);
+  }
+
+  getRestaurantData (newId) {
+    let thisId = newId || 1337;
+    axios.get('/api/restaurants/' + thisId + '/sidebar')
       .then((response) => {
         console.log('received:', response);
         this.setState({ restaurant: response.data.result });
@@ -23,17 +27,17 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    if (!this.state.restaurant) {
-      return <div> Loading Sidebar... </div>;
-    } else {
+    if (this.state.restaurant) {
       return (
         <div className="sidebar-flexbox-col sidebar-app">
           <InfoList restaurant={this.state.restaurant} />
           <MapContainer geometry={this.state.restaurant.geometry} />
         </div>
       );
+    } else {
+      return (<div> Loading Sidebar... </div>);
+      
     }
   }
 }
 
-export default Sidebar;

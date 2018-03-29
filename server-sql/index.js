@@ -6,12 +6,14 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var cors = require('cors');
+const morgan = require('morgan');
 var bodyParser = require('body-parser');
 var restaurantsRouter = require('./routers/restaurants.js');
 var restaurantsApiRouter = require('./routers/restaurants_api.js');
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(morgan('dev'));
+// app.use(bodyParser.json());
 app.use(express.static(__dirname + '../client/dist'))
 
 app.options((req, res) => {
@@ -26,6 +28,9 @@ app.get('/', (req, res) => {
 
 app.get('/bundle.js', (req, res) => {
   res.sendFile(path.resolve('client/dist/bundle.js'));
+});
+app.get('/bundle-server.js', (req, res) => {
+  res.sendFile(path.resolve('client/dist/bundle-server.js'));
 });
 
 app.use('/restaurants', restaurantsRouter);
